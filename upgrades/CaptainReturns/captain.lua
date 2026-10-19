@@ -12,21 +12,26 @@ local T = {
                  text = { { "blastSize", "pct" } } },
     captainC = { damage = 0.10, cooldown = 0.95, blastSize = 0.15,
                  text = { { "blastSize", "pct" } } },
-    captainV = { damage = 0.10, healRate = 0.15, shockRate = 0.20, resupplyRecharge = 0.20,
-                 hackSpeed = 0.20, enhanceSpeed = 0.20, punishStacks = 1,
-                 text = { { "healRate", "pct" }, { "shockRate", "pct" },
-                          { "resupplyRecharge", "pct" }, { "hackSpeed", "pct" },
-                          { "enhanceSpeed", "pct" }, { "punishStacks", "count" } } },
+    captainV         = { damage = 0.10 },
+    captainHealingV  = { healRate = 0.15,         text = { { "healRate", "pct" } } },
+    captainShockingV = { shockRate = 0.20,        text = { { "shockRate", "pct" } } },
+    captainResupplyV = { resupplyRecharge = 0.20, text = { { "resupplyRecharge", "pct" } } },
+    captainHackingV  = { hackSpeed = 0.20,        text = { { "hackSpeed", "pct" } } },
+    captainEnhanceV  = { enhanceSpeed = 0.20,     text = { { "enhanceSpeed", "pct" } } },
+    captainPunisherV = { punishStacks = 1,        text = { { "punishStacks", "count" } } },
 }
 
 local SKILLS = {
     captainZ = { "captainZ" },
     captainX = { "captainX" },
     captainC = { "captainC", "captainC_1" },
-    captainV = { "captainV", "captainVboosted",
-                 "captainBeaconHealing_1", "captainBeaconShocking_1", "captainBeaconResupply_1",
-                 "captainBeaconHacking_1", "captainBeaconEnhance_1", "captainBeaconPunisher_1",
-                 "captainUnavailable" },
+    captainV         = { "captainV", "captainVboosted", "captainUnavailable" },
+    captainHealingV  = { "captainBeaconHealing", "captainBeaconHealing_1" },
+    captainShockingV = { "captainBeaconShocking", "captainBeaconShocking_1" },
+    captainResupplyV = { "captainBeaconResupply", "captainBeaconResupply_1" },
+    captainHackingV  = { "captainBeaconHacking", "captainBeaconHacking_1" },
+    captainEnhanceV  = { "captainBeaconEnhance", "captainBeaconEnhance_1" },
+    captainPunisherV = { "captainBeaconPunisher", "captainBeaconPunisher_1" },
 }
 
 local NS = "CaptainReturns"
@@ -115,7 +120,7 @@ local function beacon_data(inst)
     return Instance.get_data(inst, nil, NS)
 end
 
-local function faster_pulses(object, rate)
+local function faster_pulses(object, def, rate)
     Callback.add(object.on_step, Callback.Priority.AFTER, function(inst)
         local data = beacon_data(inst)
         if not data or data.beingcalled == 1 then return end
@@ -123,12 +128,12 @@ local function faster_pulses(object, rate)
         if timer <= BEACON_AWAKE then return end
         local rank = beacon_rank(inst)
         if rank < 1 then return end
-        data.activetimer = timer + T.captainV[rate] * rank
+        data.activetimer = timer + def[rate] * rank
     end)
 end
 
-faster_pulses(HEALING, "healRate")
-faster_pulses(SHOCKING, "shockRate")
+faster_pulses(HEALING, T.captainHealingV, "healRate")
+faster_pulses(SHOCKING, T.captainShockingV, "shockRate")
 
 Callback.add(RESUPPLY.on_step, Callback.Priority.AFTER, function(inst)
     local data = beacon_data(inst)
@@ -138,7 +143,7 @@ Callback.add(RESUPPLY.on_step, Callback.Priority.AFTER, function(inst)
     local rank = beacon_rank(inst)
     if rank < 1 then return end
     local own = Instance.get_data(inst, nil, Util.NS)
-    local due = (own.sppms_recharge or 0) + T.captainV.resupplyRecharge * rank
+    local due = (own.sppms_recharge or 0) + T.captainResupplyV.resupplyRecharge * rank
     data.recharge = left - math.min(math.floor(due), left - 1)
     own.sppms_recharge = due - math.floor(due)
 end)
@@ -210,7 +215,7 @@ Callback.add(HACKING.on_step, Callback.Priority.AFTER, function(inst)
     if kind ~= HIDDEN_HAND and kind ~= ROBO_BUDDY and kind ~= DOOR then
         fill = GM._mod_game_getDirector().stage_chest_cost_scale
     end
-    chest.captainhacktimer = chest.captainhacktimer + fill * T.captainV.hackSpeed * rank
+    chest.captainhacktimer = chest.captainhacktimer + fill * T.captainHackingV.hackSpeed * rank
 end)
 
 save_timers(ENHANCE, "captainUpTimer")
@@ -237,7 +242,7 @@ Callback.add(ENHANCE.on_step, Callback.Priority.AFTER, function(inst)
     local beacons = tonumber(chest.enhanceCount) or 0
     if beacons < 1 then return end
     local fill = GM._mod_game_getDirector().stage_chest_cost_scale / beacons
-    chest.captainUpTimer = chest.captainUpTimer + fill * T.captainV.enhanceSpeed * rank
+    chest.captainUpTimer = chest.captainUpTimer + fill * T.captainEnhanceV.enhanceSpeed * rank
 end)
 
 Callback.add(PUNISHER.on_step, Callback.Priority.AFTER, function(inst)
@@ -248,7 +253,7 @@ Callback.add(PUNISHER.on_step, Callback.Priority.AFTER, function(inst)
     own.sppms_punish = true
     local rank = beacon_rank(inst)
     if rank < 1 then return end
-    local stacks = math.min(PUNISH_MAX, data.punished + T.captainV.punishStacks * rank)
+    local stacks = math.min(PUNISH_MAX, data.punished + T.captainPunisherV.punishStacks * rank)
     data.punished = math.max(data.punished, stacks)
 end)
 
