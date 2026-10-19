@@ -21,6 +21,12 @@ A skill that does nothing or cannot grow says "Cannot be leveled up" instead of 
 Type `sppms_status` in the console to see which supported survivors were found. Lose Humanity's monsters are found when a run starts.
 
 ---
+## Todo
+- Balance adjustment.
+- Gigachad 3.0.0 support.
+- New survivor mods as they come out.
+
+---
 ## Credits
 * GreenAlen22 - Programming, Ideas
 
