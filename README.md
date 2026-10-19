@@ -23,7 +23,6 @@ Type `sppms_status` in the console to see which supported survivors were found. 
 ---
 ## Todo
 - Balance adjustment.
-- Gigachad 3.0.0 support.
 - New survivor mods as they come out.
 
 ---
