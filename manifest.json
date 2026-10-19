@@ -1,0 +1,11 @@
+{
+	"name": "SPPModdedSurvivors",
+	"version_number": "0.1.0",
+	"website_url": "https://github.com/GreenAlen22/rorr-SPP-Modded-Survivors/wiki",
+	"description": "SPP: Modded Survivors - an addon for Skills++: skills of survivors from other mods get upgrades of their own, not just the generic bonus.",
+	"dependencies": [
+		"LuaENVY-ENVY-1.2.1",
+		"ReturnsAPI-ReturnsAPI-0.1.59",
+		"GreenAlen22-SkillPlusPlus-0.4.0"
+	]
+}
