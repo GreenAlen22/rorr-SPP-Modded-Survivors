@@ -12,9 +12,10 @@ Every skill of these survivors, alternatives and Ancient Scepter versions includ
 - [Hunter](https://thunderstore.io/c/risk-of-rain-returns/p/ANXvariable/Hunter/), [Fishmonger](https://thunderstore.io/c/risk-of-rain-returns/p/SmoothSpatula/Fishmonger/), [Reclaimer](https://thunderstore.io/c/risk-of-rain-returns/p/GIC/Reclaimer/), [Revenant](https://thunderstore.io/c/risk-of-rain-returns/p/LostGearProductions/Revenant/), [Zerimp](https://thunderstore.io/c/risk-of-rain-returns/p/ANXvariable/Zerimp_Returns/).
 - [Captain](https://thunderstore.io/c/risk-of-rain-returns/p/CoolLoaders_Inc/CaptainReturns/), [REX](https://thunderstore.io/c/risk-of-rain-returns/p/syntaxevasion/RiskOfRexReturns/) - those two mods turn online play off while installed.
 - [Gigachad](https://thunderstore.io/c/risk-of-rain-returns/p/GreenAlen22/Gigachad/), [Gin](https://thunderstore.io/c/risk-of-rain-returns/p/cginc/GinMod/), [Ghost](https://thunderstore.io/c/risk-of-rain-returns/p/cginc/Ghost_Survivor/).
+- [Worlds Incursion](https://thunderstore.io/c/risk-of-rain-returns/p/GIC/Worlds_Incursion/): Admiral, H.3.L.P.3.R., Warrior, and its copy of Reclaimer.
 - The eleven monsters of [Lose Humanity](https://thunderstore.io/c/risk-of-rain-returns/p/Neorit/LoseHumanity/).
 
-Skills other mods add to vanilla survivors: [Sniper Stab Legacy](https://thunderstore.io/c/risk-of-rain-returns/p/DigBugReal/SniperStabLegacy/) and [Aphelion](https://thunderstore.io/c/risk-of-rain-returns/p/Klehrik/Aphelion/) (Unload, Stealth, BLAST).
+Skills other mods add to vanilla survivors: [Sniper Stab Legacy](https://thunderstore.io/c/risk-of-rain-returns/p/DigBugReal/SniperStabLegacy/), [Aphelion](https://thunderstore.io/c/risk-of-rain-returns/p/Klehrik/Aphelion/) (Unload, Stealth, BLAST) and [Worlds Incursion](https://thunderstore.io/c/risk-of-rain-returns/p/GIC/Worlds_Incursion/) (two new skills each for Bandit, Enforcer, Engineer and HAN-D).
 
 A skill that does nothing or cannot grow says "Cannot be leveled up" instead of taking your point. Deserter and Jam Man keep the Skills++ generic bonus. What each skill level gives: [wiki](https://github.com/GreenAlen22/rorr-SPP-Modded-Survivors/wiki).
 

@@ -13,4 +13,5 @@ All notable SPP: Modded Survivors changes.
 - **Gigachad:** upgrades follow Gigachad 3.0; MeguMin's now shorten the helpless time and widen the blast.
 - **The eleven Lose Humanity monsters:** upgrades of their own; their empty slots cannot be leveled.
 - **Sniper Stab Legacy, Aphelion:** Stab, Unload, Stealth and BLAST get upgrades of their own.
+- **Worlds Incursion:** Admiral, H.3.L.P.3.R., Warrior and its copy of Reclaimer get upgrades of their own, and so do its eight new skills for Bandit, Enforcer, Engineer and HAN-D.
 - `sppms_status` shows which supported survivors were found.

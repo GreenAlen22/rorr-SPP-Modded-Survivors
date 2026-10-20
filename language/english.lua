@@ -74,6 +74,17 @@ local lines = {
     punishStacks       = "+%s (+%s per level) Punisher beacon stacks",
     kickSize           = "+%s% (+%s% per level) kick size",
     helplessCut        = "-%s% (-%s% per level, up to -%s%) helpless time after the blast",
+    waveSize           = "+%s% (+%s% per level) wave size",
+    whipReach          = "+%s% (+%s% per level) whip reach",
+    sweetSpotDamage    = "+%s% (+%s% per level) sweet spot damage",
+    summonPower        = "+%s% (+%s% per level) summon health and damage",
+    beaconRadius       = "+%s% (+%s% per level) beacon radius",
+    beaconHeal         = "+%s% (+%s% per level) max health healed per beacon pulse",
+    tauntSeconds       = "+%ss (+%ss per level) taunt duration",
+    statCostCut        = "-%s% (-%s% per level, up to -%s%) stats lost per use",
+    burnChance         = "+%s% (+%s% per level) chance to burn twice",
+    boostShield        = "+%s% (+%s% per level) max health as shield while boosted",
+    stancePellets      = "+%s (+%s per level) pellets per shot in Protect and Serve's stance",
 }
 
 return {
@@ -92,4 +103,5 @@ return {
     Neorit            = { skillPlusPlus = lines },
     SniperStabMod     = { skillPlusPlus = lines },
     aphelion          = { skillPlusPlus = lines },
+    ["Worlds Collide"] = { skillPlusPlus = lines },
 }

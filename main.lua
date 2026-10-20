@@ -28,6 +28,10 @@ local modules = {
     "upgrades/Neorit/LoseHumanity",
     "upgrades/SniperStabMod/SniperStab",
     "upgrades/aphelion/aphelion",
+    "upgrades/Worlds Collide/Admiral",
+    "upgrades/Worlds Collide/helper",
+    "upgrades/Worlds Collide/Bitwarrior",
+    "upgrades/Worlds Collide/WorldsIncursion",
     "settings/debug",
 }
 
@@ -54,7 +58,7 @@ local expected = {
     "Hunter", "Fishmonger", "Reclaimer", "Revenant",
     "Zerimp", "Technician", "Captain", "Rex", "Gigachad",
     "Gin", "Ghost", "LoseHumanity",
-    "SniperStab", "Aphelion", "Debug",
+    "SniperStab", "Aphelion", "Admiral", "Helper", "Bitwarrior", "WorldsIncursion", "Debug",
 }
 
 Initialize.add(Callback.Priority.AFTER, function()

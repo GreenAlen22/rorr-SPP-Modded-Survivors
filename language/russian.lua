@@ -74,6 +74,17 @@ local lines = {
     punishStacks       = "+%s (+%s за ур.) к стакам баффа маяка Punisher",
     kickSize           = "+%s% (+%s% за ур.) к размеру пинка",
     helplessCut        = "-%s% (-%s% за ур., до -%s%) ко времени без сил после взрыва",
+    waveSize           = "+%s% (+%s% за ур.) к размеру волны",
+    whipReach          = "+%s% (+%s% за ур.) к дальности хлыста",
+    sweetSpotDamage    = "+%s% (+%s% за ур.) к урону сладкой точки",
+    summonPower        = "+%s% (+%s% за ур.) к здоровью и урону призванного",
+    beaconRadius       = "+%s% (+%s% за ур.) к радиусу маяка",
+    beaconHeal         = "+%s% (+%s% за ур.) макс. здоровья за импульс маяка",
+    tauntSeconds       = "+%s с (+%s с за ур.) к длительности провокации",
+    statCostCut        = "-%s% (-%s% за ур., до -%s%) к потере характеристик за применение",
+    burnChance         = "+%s% (+%s% за ур.) к шансу второго поджога",
+    boostShield        = "+%s% (+%s% за ур.) макс. здоровья в щит во время усиления",
+    stancePellets      = "+%s (+%s за ур.) к числу дробин за выстрел в стойке «Служу и защищаю»",
 }
 
 return {
@@ -92,4 +103,5 @@ return {
     Neorit            = { skillPlusPlus = lines },
     SniperStabMod     = { skillPlusPlus = lines },
     aphelion          = { skillPlusPlus = lines },
+    ["Worlds Collide"] = { skillPlusPlus = lines },
 }
