@@ -18,8 +18,14 @@ local T = {
                     text = { { "backSlash", "pct", "backSlashMax" } } },
     reclaimerX3 = { markSpread = 1, markSeconds = 1,
                     text = { { "markSpread", "count" }, { "markSeconds", "sec" } } },
-    reclaimerC  = { strikeBlast = 0.15, strikeCooldown = 0.08,
-                    text = { { "strikeBlast", "pct" }, { "strikeCooldown", "pct" } } },
+    reclaimerC  = { strikeCooldown = 0.08,
+                    text = { { "strikeCooldown", "pct" } } },
+    reclaimerPrecisionC = { blastSize = 0.15, text = { { "blastSize", "pct" } } },
+    reclaimerBarrageC   = { missiles = 1, text = { { "missiles", "count" } } },
+    reclaimerGatlingC   = { missiles = 2, text = { { "missiles", "count" } } },
+    reclaimerGodsendC   = { blastDamage = 0.15, text = { { "blastDamage", "pct" } } },
+    reclaimerSmallC     = { blastSize = 0.25, text = { { "blastSize", "pct" } } },
+    reclaimerBurstC     = { missileEvery = 2, text = { { "missileEvery", "every" } } },
     reclaimerV  = { cooldown = 0.95, useHeal = 0.05,
                     text = { { "useHeal", "pct" } } },
     reclaimerV2 = { cooldown = 0.95, stimSeconds = 1,
@@ -33,12 +39,32 @@ local SKILLS = {
     reclaimerX  = { "ReclaimerX" },
     reclaimerX2 = { "reclaimerX2" },
     reclaimerX3 = { "reclaimerX3" },
-    reclaimerC  = { "ReclaimerC", "reclaimerPrecisionOrbital", "reclaimerMissileOrbital",
-                    "reclaimerGatlingOrbital", "reclaimerGodsendOrbital", "reclaimerSmallOrbital",
-                    "reclaimerBurstOrbital" },
+    reclaimerC  = { "ReclaimerC" },
+    reclaimerPrecisionC = { "reclaimerPrecisionStrike", "reclaimerPrecisionOrbital" },
+    reclaimerBarrageC   = { "reclaimerBarrageStrike", "reclaimerMissileOrbital" },
+    reclaimerGatlingC   = { "reclaimerGatlingStrike", "reclaimerGatlingOrbital" },
+    reclaimerGodsendC   = { "reclaimerGodsendStrike", "reclaimerGodsendOrbital" },
+    reclaimerSmallC     = { "reclaimerSmallStrike", "reclaimerSmallOrbital" },
+    reclaimerBurstC     = { "reclaimerBurstStrike", "reclaimerBurstOrbital" },
     reclaimerV  = { "ReclaimerV", "reclaimerVBoosted" },
     reclaimerV2 = { "reclaimerv2", "reclaimerVBoosted2" },
 }
+
+local STRIKE_OBJECTS = {
+    reclaimerPrecisionC = "efReclaimerMissile",
+    reclaimerGodsendC   = "efReclaimerMissile2",
+    reclaimerBarrageC   = "efReclaimerMissile3",
+    reclaimerGatlingC   = "efReclaimerMissile4",
+    reclaimerSmallC     = "efReclaimerMissile5",
+    reclaimerBurstC     = "efReclaimerMissile6",
+}
+
+local VOLLEYS = {
+    reclaimerBarrageC = { count = 7,  near = 100, far = 400 },
+    reclaimerGatlingC = { count = 18, near = 100, far = 600 },
+    reclaimerBurstC   = { count = 3,  near = 100, far = 250 },
+}
+local VOLLEY_SPACING = 10
 
 local VARIANTS = {
     { ns = "ReclaimerSurvivor", survivor = "Reclaimer", base = "Reclaimer", plasma = "stateSecondary2" },
@@ -111,9 +137,9 @@ local function prepare(v)
     local PISTOL_SPARKS = Util.find(Sprite, "ReclaimerPistolSparks", NS).value
     local BLADE_SPARKS  = Util.find(Sprite, "ReclaimerBladeSparks", NS).value
 
-    local STRIKES = {}
-    for i, suffix in ipairs({ "", "2", "3", "4", "5", "6" }) do
-        STRIKES[i] = Util.find(Object, "efReclaimerMissile"..suffix, NS)
+    local MISSILES = {}
+    for key, identifier in pairs(STRIKE_OBJECTS) do
+        MISSILES[key] = Util.find(Object, identifier, NS)
     end
 
     local skills = skills_for(v)
@@ -126,16 +152,17 @@ local function prepare(v)
     return function()
         local S = Util.register(NS, T, skills)
 
-        local ORBITALS = { table.unpack(S.reclaimerC, 2) }
+        local ORBITALS = {}
+        for key in pairs(STRIKE_OBJECTS) do ORBITALS[#ORBITALS + 1] = S[key][2] end
 
         local strike_stepping = {}
-        for i, object in ipairs(STRIKES) do strike_stepping[i] = Util.stepping(object) end
+        for key, object in pairs(MISSILES) do strike_stepping[key] = Util.stepping(object) end
 
         local function strike_exploding()
-            for _, stepping in ipairs(strike_stepping) do
-                if stepping() then return true end
+            for key, stepping in pairs(strike_stepping) do
+                if stepping() then return key end
             end
-            return false
+            return nil
         end
 
         local cracker_shot = {}
@@ -244,11 +271,31 @@ local function prepare(v)
         end)
 
         api.on_explosion(function(actor, args)
-            if actor.class ~= survivor.value or not strike_exploding() then return end
+            if actor.class ~= survivor.value then return end
+            local key = strike_exploding()
+            if not key then return end
             local rank = api.rank(actor, S.reclaimerC)
             if rank < 1 then return end
-            scale_blast(args, 1 + T.reclaimerC.strikeBlast * rank)
+            local def = T[key]
+            if def.blastSize then scale_blast(args, 1 + def.blastSize * rank) end
+            if def.blastDamage then args[4].value = args[4].value * (1 + def.blastDamage * rank) end
         end)
+
+        for key, volley in pairs(VOLLEYS) do
+            local def, missile = T[key], MISSILES[key]
+            Callback.add(S[key][2].on_activate, Callback.Priority.AFTER, function(actor)
+                local rank = api.rank(actor, S.reclaimerC)
+                local extra = def.missiles and def.missiles * rank or math.floor(rank / def.missileEvery)
+                for k = 1, extra do
+                    Alarm.add((volley.count + k) * VOLLEY_SPACING, function()
+                        if not Util.bool(Global.__run_exists) or not Instance.exists(actor) then return end
+                        local inst = missile:create(actor.x + math.random(volley.near, volley.far) * actor.image_xscale,
+                            actor.y)
+                        inst.parent = actor
+                    end)
+                end
+            end)
+        end
 
         local function shorter_strike(actor, skill, slot)
             local rank = api.rank(actor, S.reclaimerC)

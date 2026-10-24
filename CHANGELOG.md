@@ -7,7 +7,7 @@ All notable SPP: Modded Survivors changes.
 ### Added
 
 - **Starstorm Returns:** upgrades of their own for every skill of Executioner, MULE, Nemesis Commando and Nemesis Mercenary, alternatives and Ancient Scepter versions included.
-- **Hunter, Fishmonger, Reclaimer, Revenant:** upgrades of their own for every skill, alternatives and Ancient Scepter versions included. Reclaimer's orbital strikes grow with Orbital Assistance.
+- **Hunter, Fishmonger, Reclaimer, Revenant:** upgrades of their own for every skill, alternatives and Ancient Scepter versions included. Each of Reclaimer's six orbital strikes has an upgrade of its own, leveled through Orbital Assistance.
 - **Zerimp, Technician, Captain, REX:** upgrades of their own for every skill.
 - **Gigachad, Gin, Ghost:** upgrades of their own; Ghost's Z, X and C do nothing and cannot be leveled.
 - **Gigachad:** upgrades follow Gigachad 3.0; MeguMin's now shorten the helpless time and widen the blast.
